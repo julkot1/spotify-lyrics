@@ -1,8 +1,13 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import Link from 'next/link'
+import styled from 'styled-components'
+import TrackItem from './TrackItem'
 
+const StyledList = styled.ul`
+  list-style: none;
+  margin: 1em;
+`
 const TracksList = () => {
   const router = useRouter()
   const [tracks, setTracks] = useState([])
@@ -14,17 +19,11 @@ const TracksList = () => {
   }
   useEffect(getTracks, [router.asPath])
   return (
-    <ul>
+    <StyledList>
       {tracks.map((track) => (
-        <Link href={`/track/${track.id}`}>
-          <li key={track.id}>
-            <p>{track.name}</p>
-            <p>{track.artists}</p>
-            <p>{track.album}</p>
-          </li>
-        </Link>
+        <TrackItem track={track} />
       ))}
-    </ul>
+    </StyledList>
   )
 }
 

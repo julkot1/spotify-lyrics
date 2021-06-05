@@ -1,5 +1,14 @@
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import styled from 'styled-components'
+const StyledInput = styled.input`
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #00564d;
+  outline: none;
+  color: white;
+  font-size: 1.5em;
+`
 const Search = () => {
   const router = useRouter()
   const [q, setQ] = useState(router.query.q)
@@ -15,7 +24,12 @@ const Search = () => {
 
   return (
     <div>
-      <input type="text" value={q} placeholder="search" onChange={change} />
+      <StyledInput
+        type="text"
+        value={q}
+        placeholder="search.."
+        onChange={change}
+      />
     </div>
   )
 }

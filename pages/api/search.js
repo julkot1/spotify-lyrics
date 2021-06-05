@@ -1,12 +1,11 @@
 import useSpotify from '@utils/useSpotify'
 import { getSession } from 'next-auth/client'
-import Cookies from 'cookies'
+
 export default async (req, res) => {
   const session = await getSession({ req })
   if (session) {
     try {
-      const cookies = new Cookies(req, res)
-      const spotify = await useSpotify(cookies.get('refresh_token'))
+      const spotify = await useSpotify(session.user.refresh_token)
       const result = await spotify.searchTracks(req.query.q)
       const items = result.body.tracks.items.map((track) => ({
         name: track.name,

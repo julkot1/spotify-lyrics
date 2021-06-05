@@ -24,7 +24,7 @@ const track = ({ id }) => {
     <>
       {track && (
         <Layout>
-          <p>{track.track.name}</p>
+          <p>{track.info.name}</p>
           <p>{track.album.name}</p>
           <p>
             {track.artist.map((m) => m.name).reduce((p, a) => `${p}, ${a}`)}

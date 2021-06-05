@@ -1,17 +1,15 @@
 import useSpotify from '@utils/useSpotify'
 import { getSession } from 'next-auth/client'
-import Cookies from 'cookies'
-import { getLyrics, getSong } from 'genius-lyrics-api'
+import { getSong } from 'genius-lyrics-api'
 
 export default async (req, res) => {
   const session = await getSession({ req })
   if (session) {
     try {
-      const cookies = new Cookies(req, res)
-      const spotify = await useSpotify(cookies.get('refresh_token'))
+      const spotify = await useSpotify(session.user.refresh_token)
       const result = await spotify.getTrack(req.query.id)
       res.send({
-        track: getTrack(result.body),
+        info: getTrack(result.body),
         artist: await getArtists(result.body.artists, spotify),
         album: await getAlbum(result.body.album.id, spotify),
         lyrics: await getLyricsF(result.body.name, result.body.artists[0].name),
