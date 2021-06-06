@@ -16,9 +16,12 @@ const track = ({ id, tr }) => {
   const getTrack = async () => {
     if (session) {
       setTrack(null)
-      const result = await axios.get(`${process.env.API_URL}track`, {
-        params: { id: id },
-      })
+      const result = await axios.get(
+        `https://julkot1-spotify-lyrics.vercel.app/api/track`,
+        {
+          params: { id: id },
+        }
+      )
       setTrack(result.data)
     }
   }

@@ -12,9 +12,12 @@ const TracksList = () => {
   const router = useRouter()
   const [tracks, setTracks] = useState([])
   const getTracks = async () => {
-    const result = await axios.get(process.env.API_URL + 'search', {
-      params: { q: router.query.q },
-    })
+    const result = await axios.get(
+      'https://julkot1-spotify-lyrics.vercel.app/api/search',
+      {
+        params: { q: router.query.q },
+      }
+    )
     setTracks(result.data)
   }
   useEffect(getTracks, [router.asPath])
