@@ -9,6 +9,7 @@ const useSpotify = async (r_token) => {
   spotify.setRefreshToken(r_token)
   const data = await spotify.refreshAccessToken()
   spotify.setAccessToken(data.body['access_token'])
+
   return spotify
 }
 export default useSpotify

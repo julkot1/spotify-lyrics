@@ -22,7 +22,7 @@ const StyledInfo = styled.div`
 `
 const TrackItem = ({ track: { name, artists, album, id, img } }) => {
   return (
-    <Link href={`/track/${id}`}>
+    <Link href="/track/[id]" as={`/track/${id}`}>
       <StyledItem key={id}>
         <img width={64} height={64} src={img.url}></img>
         <StyledInfo>

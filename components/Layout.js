@@ -1,5 +1,6 @@
 import { signIn, useSession } from 'next-auth/client'
 import styled from 'styled-components'
+
 const StyledLogin = styled.div`
   display: flex;
   align-items: center;
@@ -41,6 +42,7 @@ const StyledButton = styled.button`
     }
   }
 `
+
 const Layout = ({ children }) => {
   const [session, loading] = useSession()
   if (loading) return null

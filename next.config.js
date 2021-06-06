@@ -14,6 +14,7 @@ module.exports = {
       'mosaic.scdn.co',
       'lineup-images.scdn.co',
       'newjams-images.scdn.co',
+      'i.imgur.com',
     ],
   },
 }

@@ -19,22 +19,65 @@ export default async (req, res) => {
     }
   } else res.send(null)
 }
-const getTrack = ({ name, duration_ms, explicit }) => ({
+const getTrack = ({ name, uri, id, external_urls }) => ({
   name,
-  duration_ms,
-  explicit,
+  uri,
+  id,
+  url: external_urls.spotify,
 })
 const getAlbum = async (id, spotify) => {
   const res = await spotify.getAlbum(id)
-  const { name, images, release_date } = res.body
-  return { name, images, release_date }
+  const { name, images, release_date, artists, external_urls, total_tracks } =
+    res.body
+
+  return {
+    name,
+    images,
+    release_date,
+    url: external_urls.spotify,
+    total_tracks,
+    tracks: await getAlbumTracks(id, spotify),
+    artists: artists.map((a) => a.name).reduce((p, a) => `${p}, ${a}`),
+  }
+}
+const getAlbumTracks = async (id, spotify) => {
+  const tracks = []
+  const getNext = async (offset) => {
+    const {
+      body: { items, next },
+    } = await spotify.getAlbumTracks(id, { offset: offset })
+    tracks.push(
+      ...items.map(({ name, id, artists }) => ({
+        name,
+        id,
+        artists: artists.map((a) => a.name).reduce((p, a) => `${p}, ${a}`),
+      }))
+    )
+    if (next != null) getNext(new URL(next).searchParams.get('offset'))
+  }
+  await getNext(0)
+  return tracks
 }
 const getArtists = async (artists, spotify) => {
   const a = []
   await artists.forEach(async ({ id }) => {
     const res = await spotify.getArtist(id)
-    const { name, genres, images } = res.body
-    a.push({ name, images, genres: genres.reduce((p, n) => `${p}, ${n}`) })
+    const {
+      body: { tracks },
+    } = await spotify.getArtistTopTracks(id, 'PL')
+
+    const { name, genres, images, external_urls } = res.body
+    a.push({
+      name,
+      images,
+      genres: genres.reduce((p, n) => `${p}, ${n}`),
+      url: external_urls.spotify,
+      topTracks: tracks.map(({ name, id, album: { images } }) => ({
+        name,
+        id,
+        img: images[0],
+      })),
+    })
   })
   return a
 }

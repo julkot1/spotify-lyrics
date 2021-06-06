@@ -2,38 +2,48 @@ import Layout from '@components/Layout'
 import React, { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/client'
 import axios from 'axios'
-import styled from 'styled-components'
-const Text = styled.text`
-  text-align: left;
-  font-size: 20px;
-`
-const track = ({ id }) => {
+import Head from 'next/head'
+import Loading from '@components/track/Loading'
+import Title from '@components/track/Title'
+import Artists from '@components/track/Artists'
+import Lyrics from '@components/track/Lyrics'
+import Album from '@components/track/Album'
+import Navbar from '@components/navbar/Navbar'
+
+const track = ({ id, tr }) => {
   const session = useSession()
-  const [track, setTrack] = useState(null)
+  const [track, setTrack] = useState(tr)
   const getTrack = async () => {
     if (session) {
+      setTrack(null)
       const result = await axios.get(`${process.env.API_URL}track`, {
         params: { id: id },
       })
-      console.log(result.data)
       setTrack(result.data)
     }
   }
-  useEffect(getTrack, [])
+
+  useEffect(getTrack, [id])
   return (
     <>
-      {track && (
+      <Head>
+        <title>Lyricsify</title>
+      </Head>
+      {track ? (
         <Layout>
-          <p>{track.info.name}</p>
-          <p>{track.album.name}</p>
-          <p>
-            {track.artist.map((m) => m.name).reduce((p, a) => `${p}, ${a}`)}
-          </p>
-          <Text>
-            {track.lyrics &&
-              track.lyrics.split('\n').map((str) => <p>{str}</p>)}
-          </Text>
+          <Navbar />
+          <Title
+            info={track.info}
+            title={track.info.name}
+            artists={track.artist}
+            img={track.album.images[0]}
+          />
+          <Artists artists={track.artist} />
+          <Lyrics lyrics={track?.lyrics} />
+          <Album album={track.album} />
         </Layout>
+      ) : (
+        <Loading />
       )}
     </>
   )

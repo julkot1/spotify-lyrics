@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="pl">
+      <Html lang="en">
         <Head>
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
