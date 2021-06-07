@@ -43,7 +43,9 @@ const Icon = styled.img`
 const Player = () => {
   const [track, setTrack] = useState(null)
   const fetchPlayer = async () => {
-    const result = await axios(`${process.env.API_URL}currenttrack`)
+    const result = await axios(
+      `https://julkot1-spotify-lyrics.vercel.app/api/currenttrack`
+    )
     setTrack(result.data)
   }
   useEffect(() => {
