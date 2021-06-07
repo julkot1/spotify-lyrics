@@ -25,7 +25,6 @@ const Left = styled.div`
   align-items: center;
 `
 const Button = styled.a`
-  margin: 0 1em;
   padding: 0.5em 1em;
   :hover {
     background-color: #373b47;
@@ -42,6 +41,7 @@ const Navbar = () => {
         <Button href="#artists">Artists</Button>
         <Button href="#lyrics">Lyrics</Button>
         <Button href="#album">Album</Button>
+        <Button href="#recommended">Recommended Tracks</Button>
       </Left>
       <Player />
     </StyledNav>

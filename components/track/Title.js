@@ -56,21 +56,15 @@ const Status = styled.div`
 const Title = ({ title, artists, img, info: { id, url, uri } }) => {
   const [status, setStatus] = useState(null)
   const queueTrack = async () => {
-    const result = await axios.get(
-      `https://julkot1-spotify-lyrics.vercel.app/api/queue`,
-      {
-        params: { uri: uri },
-      }
-    )
+    const result = await axios.get(`${process.env.API_URL}queue`, {
+      params: { uri: uri },
+    })
     setStatus(result.data)
   }
   const saveTrack = async () => {
-    const result = await axios.get(
-      `https://julkot1-spotify-lyrics.vercel.app/api/like`,
-      {
-        params: { id: id },
-      }
-    )
+    const result = await axios.get(`${process.env.API_URL}like`, {
+      params: { id: id },
+    })
     setStatus(result.data)
   }
   return (
@@ -81,7 +75,9 @@ const Title = ({ title, artists, img, info: { id, url, uri } }) => {
           by {artists.map((m) => m.name).reduce((p, a) => `${p}, ${a}`)}
         </StyledArtist>
       </StyledTitle>
-      <img width="320" height="320" src={img.url} />
+      <a target="_blank" href={url}>
+        <img width="320" height="320" src={img.url} />
+      </a>
       <Button onClick={queueTrack}>Add to queue</Button>
       <Button onClick={saveTrack}>Save a track</Button>
       {status && <Status>{status}</Status>}

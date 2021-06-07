@@ -5,7 +5,7 @@ const options = {
   providers: [
     Providers.Spotify({
       scope:
-        'user-read-playback-state user-modify-playback-state user-read-currently-playing app-remote-control streaming',
+        'user-read-playback-state user-modify-playback-state user-read-currently-playing app-remote-control streaming user-library-modify user-library-read',
       clientId: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
     }),

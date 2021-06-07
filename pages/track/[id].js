@@ -9,6 +9,7 @@ import Artists from '@components/track/Artists'
 import Lyrics from '@components/track/Lyrics'
 import Album from '@components/track/Album'
 import Navbar from '@components/navbar/Navbar'
+import RecommendedTracks from '@components/track/RecommendedTracks'
 
 const track = ({ id, tr }) => {
   const session = useSession()
@@ -16,12 +17,9 @@ const track = ({ id, tr }) => {
   const getTrack = async () => {
     if (session) {
       setTrack(null)
-      const result = await axios.get(
-        `https://julkot1-spotify-lyrics.vercel.app/api/track`,
-        {
-          params: { id: id },
-        }
-      )
+      const result = await axios.get(`${process.env.API_URL}track`, {
+        params: { id: id },
+      })
       setTrack(result.data)
     }
   }
@@ -44,6 +42,7 @@ const track = ({ id, tr }) => {
           <Artists artists={track.artist} />
           <Lyrics lyrics={track?.lyrics} />
           <Album album={track.album} />
+          <RecommendedTracks id={track.info.id} />
         </Layout>
       ) : (
         <Loading />

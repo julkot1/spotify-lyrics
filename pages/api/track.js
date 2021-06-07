@@ -1,6 +1,7 @@
 import useSpotify from '@utils/useSpotify'
 import { getSession } from 'next-auth/client'
 import { getSong } from 'genius-lyrics-api'
+import getTrack from '@utils/getTrack'
 
 export default async (req, res) => {
   const session = await getSession({ req })
@@ -19,12 +20,7 @@ export default async (req, res) => {
     }
   } else res.send(null)
 }
-const getTrack = ({ name, uri, id, external_urls }) => ({
-  name,
-  uri,
-  id,
-  url: external_urls.spotify,
-})
+
 const getAlbum = async (id, spotify) => {
   const res = await spotify.getAlbum(id)
   const { name, images, release_date, artists, external_urls, total_tracks } =
