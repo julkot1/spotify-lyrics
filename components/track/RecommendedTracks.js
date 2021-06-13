@@ -18,12 +18,9 @@ const StyledTitle = styled.h2`
 const RecommendedTracks = ({ id }) => {
   const [tracks, setTracks] = useState(null)
   const getTracks = async () => {
-    const result = await axios.get(
-      `https://julkot1-spotify-lyrics.vercel.app/api/recommendations`,
-      {
-        params: { id: id },
-      }
-    )
+    const result = await axios.get(`${process.env.API_URL}recommendations`, {
+      params: { id: id },
+    })
     setTracks(result.data)
   }
   useEffect(getTracks, [])
