@@ -53,16 +53,16 @@ const Status = styled.div`
   padding: 1em;
   animation: ${appear} 1000ms;
 `
-const Title = ({ title, artists, img, info: { id, url, uri } }) => {
+const Title = ({ info: { id, url, uri, name, artists, images } }) => {
   const [status, setStatus] = useState(null)
   const queueTrack = async () => {
-    const result = await axios.get(`${process.env.API_URL}queue`, {
+    const result = await axios.get(`${process.env.API_URL}player/queue`, {
       params: { uri: uri },
     })
     setStatus(result.data)
   }
   const saveTrack = async () => {
-    const result = await axios.get(`${process.env.API_URL}like`, {
+    const result = await axios.get(`${process.env.API_URL}player/like`, {
       params: { id: id },
     })
     setStatus(result.data)
@@ -70,13 +70,11 @@ const Title = ({ title, artists, img, info: { id, url, uri } }) => {
   return (
     <StyledContainer id="home">
       <StyledTitle>
-        {title}
-        <StyledArtist>
-          by {artists.map((m) => m.name).reduce((p, a) => `${p}, ${a}`)}
-        </StyledArtist>
+        {name}
+        <StyledArtist>by {artists}</StyledArtist>
       </StyledTitle>
       <a target="_blank" href={url}>
-        <img width="320" height="320" src={img.url} />
+        <img width="320" height="320" src={images[0].url} />
       </a>
       <Button onClick={queueTrack}>Add to queue</Button>
       <Button onClick={saveTrack}>Save a track</Button>

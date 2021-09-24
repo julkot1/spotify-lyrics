@@ -1,7 +1,8 @@
-import React from 'react'
+import fetchArtists from '@utils/fetch/artists'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import ArtistItem from './ArtistItem'
-
+import { useSession } from 'next-auth/client'
 const StyledContainer = styled.section`
   display: flex;
   flex-direction: column;
@@ -19,9 +20,7 @@ const Artists = ({ artists }) => {
   return (
     <StyledContainer id="artists">
       <StyledTitle>Artists</StyledTitle>
-      {artists.map((art) => (
-        <ArtistItem artist={art} />
-      ))}
+      {artists ? artists.map((art) => <ArtistItem artist={art} />) : <></>}
     </StyledContainer>
   )
 }

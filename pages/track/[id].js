@@ -1,7 +1,6 @@
 import Layout from '@components/Layout'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSession } from 'next-auth/client'
-import axios from 'axios'
 import Head from 'next/head'
 import Loading from '@components/track/Loading'
 import Title from '@components/track/Title'
@@ -10,21 +9,14 @@ import Lyrics from '@components/track/Lyrics'
 import Album from '@components/track/Album'
 import Navbar from '@components/navbar/Navbar'
 import RecommendedTracks from '@components/track/RecommendedTracks'
+import fetchTrack from '@utils/fetch/track'
+import fetchArtists from '@utils/fetch/artists'
 
 const track = ({ id, tr }) => {
-  const session = useSession()
-  const [track, setTrack] = useState(tr)
-  const getTrack = async () => {
-    if (session) {
-      setTrack(null)
-      const result = await axios.get(`${process.env.API_URL}track`, {
-        params: { id: id },
-      })
-      setTrack(result.data)
-    }
-  }
-
+  const [track, getTrack] = fetchTrack(tr, id, useSession())
   useEffect(getTrack, [id])
+  const [artists, getArtists] = fetchArtists(track.artists_url, useSession())
+  useEffect(getArtists, [id])
   return (
     <>
       <Head>
@@ -33,16 +25,8 @@ const track = ({ id, tr }) => {
       {track ? (
         <Layout>
           <Navbar />
-          <Title
-            info={track.info}
-            title={track.info.name}
-            artists={track.artist}
-            img={track.album.images[0]}
-          />
-          <Artists artists={track.artist} />
-          <Lyrics lyrics={track?.lyrics} />
-          <Album album={track.album} />
-          <RecommendedTracks id={track.info.id} />
+          <Title info={track} />
+          <Artists artists={artists} />
         </Layout>
       ) : (
         <Loading />
@@ -50,6 +34,7 @@ const track = ({ id, tr }) => {
     </>
   )
 }
+
 export const getServerSideProps = async (ctx) => {
   const id = ctx.params.id
   return { props: { id: id } }
