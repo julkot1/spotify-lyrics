@@ -40,7 +40,7 @@ const StyledElement = styled.li`
 const TopTrack = ({ track: { id, images, name } }) => {
   return (
     <Link href="/track/[id]" as={`/track/${id}`}>
-      <StyledElement>
+      <StyledElement key={id}>
         <img width={64} height={64} src={images[0].url} />
         {name}
       </StyledElement>

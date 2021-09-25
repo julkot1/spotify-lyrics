@@ -9,13 +9,17 @@ export default async (req, res) => {
     try {
       const spotify = await useSpotify(session.user.refresh_token)
       const result = await spotify.getTrack(req.query.id)
+      const lyrics = await getLyrics(
+        result.body.name,
+        result.body.artists[0].name
+      )
       res.send({
         ...getTrack(result.body),
-        lyrics: await getLyricsF(result.body.name, result.body.artists[0].name),
+        lyrics,
         artists_url: result.body.artists.map(
           ({ id }) => `${process.env.API_URL}artist/${id}`
         ),
-        album_url: `${process.env.API_URL}api/album/${result.body.album.id}`,
+        album_url: `${process.env.API_URL}album/${result.body.album.id}`,
         recommendations_url: `${process.env.API_URL}track/${result.body.id}/recommendations`,
       })
     } catch (err) {
@@ -24,7 +28,7 @@ export default async (req, res) => {
   } else res.send(null)
 }
 
-const getLyricsF = async (title, artistName) => {
+const getLyrics = async (title, artistName) => {
   const options = {
     apiKey: 'airmRUZUGrqc2qPINCafngxYl4h-LC2TArJLe6DfnWT_W8Yhbsc2n9TDdF-zzgSt',
     title: removeRemastered(title),

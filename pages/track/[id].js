@@ -9,24 +9,25 @@ import Lyrics from '@components/track/Lyrics'
 import Album from '@components/track/Album'
 import Navbar from '@components/navbar/Navbar'
 import RecommendedTracks from '@components/track/RecommendedTracks'
-import fetchTrack from '@utils/fetch/track'
-import fetchArtists from '@utils/fetch/artists'
+import fetchData from '@utils/fetch/data'
 
 const track = ({ id, tr }) => {
-  const [track, getTrack] = fetchTrack(tr, id, useSession())
-  useEffect(getTrack, [id])
-  const [artists, getArtists] = fetchArtists(track.artists_url, useSession())
-  useEffect(getArtists, [id])
+  const [data, getData] = fetchData(id, useSession())
+  useEffect(getData, [id])
+
   return (
     <>
       <Head>
         <title>Lyricsify</title>
       </Head>
-      {track ? (
+      {data ? (
         <Layout>
           <Navbar />
-          <Title info={track} />
-          <Artists artists={artists} />
+          <Title info={data.track} />
+          <Artists artists={data.artists} />
+          <Lyrics lyrics={data.track?.lyrics} />
+          <Album album={data.album} />
+          <RecommendedTracks recommendations={data.recommendations} />
         </Layout>
       ) : (
         <Loading />

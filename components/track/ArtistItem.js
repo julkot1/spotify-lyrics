@@ -26,20 +26,27 @@ const Genres = styled.p`
   font-size: 1.25em;
 `
 const ArtistItem = ({ artist }) => {
+  console.log(artist)
   return (
-    <div>
-      <Header>
-        <ImageContainer href={artist.url} target="_blank">
-          <Image width={96} height={96} src={artist.images[0]?.url} />
-        </ImageContainer>
-        <ArtistName>{artist.name}</ArtistName>
-      </Header>
-      <Genres>
-        <h3>Genres:</h3>
-        {artist.genres}
-      </Genres>
-      <ArtistTopTracks tracks={artist.topTracks} />
-    </div>
+    <React.Fragment>
+      {artist != {} ? (
+        <div>
+          <Header>
+            <ImageContainer href={artist.url} target="_blank">
+              <Image width={96} height={96} src={artist.images[0]?.url} />
+            </ImageContainer>
+            <ArtistName>{artist.name}</ArtistName>
+          </Header>
+          <Genres>
+            <h3>Genres:</h3>
+            {artist.genres}
+          </Genres>
+          <ArtistTopTracks tracks={artist.topTracks} />
+        </div>
+      ) : (
+        <></>
+      )}
+    </React.Fragment>
   )
 }
 

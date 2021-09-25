@@ -1,19 +1,12 @@
 import axios from 'node_modules/axios/index'
-import { useState } from 'react'
 
-const fetchArtists = (ids, session) => {
-  const [artists, setArtists] = useState([])
-  const getArtists = async () => {
-    if (session) {
-      const data = []
-      for (const id of ids) {
-        const result = await axios.get(id)
-        data.push(result.data)
-      }
-      setArtists(data)
-    }
+const fetchArtists = async (urls) => {
+  const data = []
+  for (const url of urls) {
+    const result = await axios.get(url)
+    data.push(result.data)
   }
-  return [artists, getArtists]
+  return data
 }
 
 export default fetchArtists

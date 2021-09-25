@@ -15,21 +15,13 @@ const StyledTitle = styled.h2`
   margin: 1em 0;
   font-weight: bolder;
 `
-const RecommendedTracks = ({ id }) => {
-  const [tracks, setTracks] = useState(null)
-  const getTracks = async () => {
-    const result = await axios.get(`${process.env.API_URL}recommendations`, {
-      params: { id: id },
-    })
-    setTracks(result.data)
-  }
-  useEffect(getTracks, [])
+const RecommendedTracks = ({ recommendations }) => {
   return (
     <>
-      {tracks ? (
+      {recommendations ? (
         <StyledContainer id="recommended">
           <StyledTitle>Recommended Tracks</StyledTitle>
-          <RecommendedList tracks={tracks} />
+          <RecommendedList tracks={recommendations} />
         </StyledContainer>
       ) : null}
     </>
