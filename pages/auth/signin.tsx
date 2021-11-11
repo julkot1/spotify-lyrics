@@ -1,6 +1,7 @@
-import { signIn, useSession } from 'next-auth/client'
+import { getProviders, signIn, useSession } from 'next-auth/client'
+import { useRouter } from 'next/router'
+import Layout from '../../components/Layout'
 import styled from 'styled-components'
-
 const StyledLogin = styled.div`
   display: flex;
   align-items: center;
@@ -8,10 +9,6 @@ const StyledLogin = styled.div`
   justify-content: center;
   width: 100%;
   height: 100vh;
-`
-const StyledTitle = styled.p`
-  font-weight: bold;
-  font-size: 3em;
 `
 const StyledButton = styled.button`
   background-color: transparent;
@@ -42,21 +39,30 @@ const StyledButton = styled.button`
     }
   }
 `
-
-const Layout = ({ children }) => {
+export default (props: any) => {
   const [session, loading] = useSession()
-  if (loading) return null
+  const router = useRouter()
+  if (session) router.push('/')
+
   return (
-    <div>
-      {!session && (
-        <StyledLogin>
-          <StyledTitle>Not signed in</StyledTitle>
-          <StyledButton onClick={signIn}>Sign In</StyledButton>
-        </StyledLogin>
-      )}
-      {session && <>{children}</>}
-    </div>
+    <Layout>
+      <StyledLogin>
+        {Object.values(props.providers).map((provider: any) => (
+          <div key={provider.name}>
+            <StyledButton onClick={() => signIn(provider.id)}>
+              Sign in with {provider.name}
+            </StyledButton>
+          </div>
+        ))}
+      </StyledLogin>
+    </Layout>
   )
 }
 
-export default Layout
+// This is the recommended way for Next.js 9.3 or newer
+export async function getServerSideProps(context) {
+  const providers = await getProviders()
+  return {
+    props: { providers },
+  }
+}

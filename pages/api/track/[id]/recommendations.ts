@@ -6,7 +6,7 @@ export default async (req, res) => {
   const session = await getSession({ req })
   if (session) {
     try {
-      const spotify = await useSpotify(session.user.refresh_token)
+      const spotify = await useSpotify(session.user['refresh_token'])
       const {
         body: { tracks },
       } = await spotify.getRecommendations({
@@ -14,7 +14,7 @@ export default async (req, res) => {
         limit: 10,
       })
 
-      res.send(tracks.map((track) => getTrack(track)))
+      res.send(tracks.map((track) => getTrack(track as any)))
     } catch (err) {
       res.send(err)
     }

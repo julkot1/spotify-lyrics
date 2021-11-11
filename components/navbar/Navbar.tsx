@@ -43,7 +43,7 @@ const Navbar = () => {
         <Button href="#album">Album</Button>
         <Button href="#recommended">Recommended Tracks</Button>
       </Left>
-      <Player />
+      {false || <Player />}
     </StyledNav>
   )
 }

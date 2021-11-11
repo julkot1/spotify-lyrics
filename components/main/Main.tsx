@@ -1,6 +1,7 @@
 import Search from '@components/Search'
-import TracksList from './TracksList'
+import TracksList from '../TracksList'
 import styled from 'styled-components'
+import MainNavbar from './nav/MainNavbar'
 const StyledMain = styled.main`
   width: 100%;
   display: flex;
@@ -13,11 +14,14 @@ const Title = styled.h1`
 `
 const Main = () => {
   return (
-    <StyledMain>
-      <Title>Lyricsify</Title>
-      <Search />
-      <TracksList />
-    </StyledMain>
+    <>
+      <MainNavbar />
+      <StyledMain>
+        <Title>Lyricsify</Title>
+        <Search />
+        <TracksList />
+      </StyledMain>
+    </>
   )
 }
 

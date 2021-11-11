@@ -17,7 +17,11 @@ const TracksList = () => {
     })
     setTracks(result.data)
   }
-  useEffect(getTracks, [router.asPath])
+  useEffect(() => {
+    ;(async () => {
+      await getTracks()
+    })()
+  }, [router.asPath])
   return (
     <StyledList>
       {tracks.map((track) => (

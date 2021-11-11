@@ -8,6 +8,7 @@ const StyledInput = styled.input`
   outline: none;
   color: white;
   font-size: 1.5em;
+  width: 30%;
 `
 const Search = () => {
   const router = useRouter()
@@ -23,14 +24,12 @@ const Search = () => {
   }
 
   return (
-    <div>
-      <StyledInput
-        type="text"
-        value={q}
-        placeholder="search.."
-        onChange={change}
-      />
-    </div>
+    <StyledInput
+      type="text"
+      value={q}
+      placeholder="search..."
+      onChange={change}
+    />
   )
 }
 

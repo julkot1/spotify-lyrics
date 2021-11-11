@@ -7,7 +7,7 @@ export default async (req, res) => {
   const session = await getSession({ req })
   if (session) {
     try {
-      const spotify = await useSpotify(session.user.refresh_token)
+      const spotify = await useSpotify(session.user['refresh_token'])
       const result = await spotify.getTrack(req.query.id)
       const lyrics = await getLyrics(
         result.body.name,
@@ -16,11 +16,6 @@ export default async (req, res) => {
       res.send({
         ...getTrack(result.body),
         lyrics,
-        artists_url: result.body.artists.map(
-          ({ id }) => `${process.env.API_URL}artist/${id}`
-        ),
-        album_url: `${process.env.API_URL}album/${result.body.album.id}`,
-        recommendations_url: `${process.env.API_URL}track/${result.body.id}/recommendations`,
       })
     } catch (err) {
       res.send(null)
@@ -40,6 +35,6 @@ const getLyrics = async (title, artistName) => {
 }
 const removeRemastered = (name) => {
   const re = /- (\d\d\d\d )*(Remastere*d*)*( (\d\d\d\d)|(Version))*/g
-  var newstr = name.replace(re, '').replace(/Version/, '')
-  return newstr
+  var newStr = name.replace(re, '').replace(/Version/, '')
+  return newStr
 }

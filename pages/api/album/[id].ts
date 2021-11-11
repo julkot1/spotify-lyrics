@@ -5,7 +5,7 @@ export default async (req, res) => {
   const session = await getSession({ req })
   if (session) {
     try {
-      const spotify = await useSpotify(session.user.refresh_token)
+      const spotify = await useSpotify(session.user['refresh_token'])
       const album = await spotify.getAlbum(req.query.id)
       const tracks = await getAlbumTracks(req.query.id, spotify)
       res.send({
@@ -23,14 +23,14 @@ const getAlbum = ({
   release_date,
   artists,
   external_urls,
-  total_tracks,
-}) => {
+  tracks: { total },
+}: SpotifyApi.SingleAlbumResponse) => {
   return {
     name,
     images,
     release_date,
     url: external_urls.spotify,
-    total_tracks,
+    total_tracks: total,
     artists: artists.map((a) => a.name).reduce((p, a) => `${p}, ${a}`),
   }
 }

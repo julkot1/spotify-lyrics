@@ -1,6 +1,7 @@
-import Main from '@components/Main'
+import Main from '@components/main/Main'
 import Layout from '@components/Layout'
 import Head from 'next/head'
+import React from 'react'
 export default function Home() {
   return (
     <Layout>

@@ -1,7 +1,7 @@
-import NextAuth from 'next-auth'
+import NextAuth, { NextAuthOptions } from 'next-auth'
 import Providers from 'next-auth/providers'
 
-const options = {
+const options: NextAuthOptions = {
   providers: [
     Providers.Spotify({
       scope:
@@ -10,6 +10,9 @@ const options = {
       clientSecret: process.env.CLIENT_SECRET,
     }),
   ],
+  pages: {
+    signIn: '/auth/signin',
+  },
   callbacks: {
     async jwt(token, _, account) {
       if (account) {
