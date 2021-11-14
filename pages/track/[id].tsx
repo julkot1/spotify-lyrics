@@ -27,7 +27,11 @@ const track = ({ id, tr }) => {
           <Artists artists={data.artists} />
           <Lyrics lyrics={data.track?.lyrics} />
           <Album album={data.album} />
-          <RecommendedTracks recommendations={data.recommendations} />
+          <RecommendedTracks
+            name={data.track.name}
+            artists={data.track.artists}
+            recommendations={data.recommendations}
+          />
         </Layout>
       ) : (
         <Loading />

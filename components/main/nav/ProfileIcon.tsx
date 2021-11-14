@@ -4,6 +4,7 @@ import axios from 'node_modules/axios/index'
 import { Profile } from '../../../utils/types/profile'
 import styled from 'styled-components'
 import { green } from '../../../utils/style/colors'
+import Link from 'next/link'
 type Props = {}
 
 type StyledProps = {
@@ -32,12 +33,14 @@ const ProfileIcon: FunctionComponent<Props> = ({}) => {
   return (
     <>
       {profile ? (
-        <StyledImage
-          alt={profile.id}
-          src={profile.images[0].url}
-          premium={profile.isPremium}
-          title="profile"
-        />
+        <Link href="/profile">
+          <StyledImage
+            alt={profile.id}
+            src={profile.images[0].url}
+            premium={profile.isPremium}
+            title="profile"
+          />
+        </Link>
       ) : (
         <LoadingDiv />
       )}

@@ -1,13 +1,14 @@
 import React from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
+import { green } from '@utils/style/colors'
 const StyledItem = styled.li`
   display: flex;
   align-items: center;
   cursor: pointer;
   margin: 1em;
   padding: 1em;
-  border: 2px solid #00564d;
+  border: 2px solid ${green};
   border-radius: 20px;
   transition: box-shadow 200ms ease-in-out;
   transition: transform 200ms ease-in-out;

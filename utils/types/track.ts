@@ -9,5 +9,6 @@ export interface Track {
   artists_url: string[]
   album_url: string
   recommendations_url: string
+  uri: string
   images: Image[]
 }

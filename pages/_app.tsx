@@ -1,8 +1,9 @@
+import { background } from '@utils/style/colors'
 import { Provider } from 'next-auth/client'
 import { createGlobalStyle } from 'styled-components'
 const GlobalStyle = createGlobalStyle`
   body{
-    background-color: #363636;
+    background-color: ${background};
     color: white;
     padding: 0;
     margin: 0;
@@ -17,6 +18,9 @@ const GlobalStyle = createGlobalStyle`
   }
   h3{
     font-size: 2rem;
+  }
+  input{
+    font-family: 'Lato', sans-serif;
   }
 
 `

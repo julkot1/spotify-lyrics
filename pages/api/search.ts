@@ -5,7 +5,7 @@ export default async (req, res) => {
   const session = await getSession({ req })
   if (session) {
     try {
-      const spotify = await useSpotify(session.user.refresh_token)
+      const spotify = await useSpotify(session.user['refresh_token'])
       const result = await spotify.searchTracks(req.query.q)
       const items = result.body.tracks.items.map((track) => ({
         name: track.name,

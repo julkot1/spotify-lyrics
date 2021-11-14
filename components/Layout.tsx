@@ -1,4 +1,4 @@
-import { signIn, useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 
 const Layout = ({ children }) => {

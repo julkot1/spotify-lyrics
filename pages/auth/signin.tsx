@@ -1,7 +1,9 @@
-import { getProviders, signIn, useSession } from 'next-auth/client'
+import { getProviders, signIn, useSession, signOut } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import Layout from '../../components/Layout'
 import styled from 'styled-components'
+import { green } from '@utils/style/colors'
+import Button from '@components/buttons/Button'
 const StyledLogin = styled.div`
   display: flex;
   align-items: center;
@@ -10,36 +12,8 @@ const StyledLogin = styled.div`
   width: 100%;
   height: 100vh;
 `
-const StyledButton = styled.button`
-  background-color: transparent;
-  border: 3px solid #00564d;
-  color: white;
-  padding: 0.5em 1em;
-  font-size: 1.5em;
-  position: relative;
-  z-index: 2;
-  cursor: pointer;
-  outline: none;
-  ::before {
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    background-color: #00564d;
-    width: 100%;
-    height: 100%;
-    content: '';
-    transform-origin: 0 0;
-    transition: transform 500ms cubic-bezier(0.5, 1.6, 0.4, 0.7);
-    transform: scaleX(0);
-  }
-  :hover {
-    ::before {
-      transform: scaleX(1);
-    }
-  }
-`
-export default (props: any) => {
+
+const SignIn = (props: any) => {
   const [session, loading] = useSession()
   const router = useRouter()
   if (session) router.push('/')
@@ -49,9 +23,9 @@ export default (props: any) => {
       <StyledLogin>
         {Object.values(props.providers).map((provider: any) => (
           <div key={provider.name}>
-            <StyledButton onClick={() => signIn(provider.id)}>
+            <Button onClick={() => signIn(provider.id)}>
               Sign in with {provider.name}
-            </StyledButton>
+            </Button>
           </div>
         ))}
       </StyledLogin>
@@ -59,10 +33,10 @@ export default (props: any) => {
   )
 }
 
-// This is the recommended way for Next.js 9.3 or newer
 export async function getServerSideProps(context) {
   const providers = await getProviders()
   return {
     props: { providers },
   }
 }
+export default SignIn

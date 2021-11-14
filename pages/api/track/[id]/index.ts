@@ -23,9 +23,9 @@ export default async (req, res) => {
   } else res.send(null)
 }
 
-const getLyrics = async (title, artistName) => {
+const getLyrics = async (title: string, artistName) => {
   const options = {
-    apiKey: 'airmRUZUGrqc2qPINCafngxYl4h-LC2TArJLe6DfnWT_W8Yhbsc2n9TDdF-zzgSt',
+    apiKey: process.env.GENIUS,
     title: removeRemastered(title),
     artist: artistName,
     optimizeQuery: true,
@@ -33,7 +33,7 @@ const getLyrics = async (title, artistName) => {
   const song = await getSong(options)
   return song?.lyrics
 }
-const removeRemastered = (name) => {
+const removeRemastered = (name: string): string => {
   const re = /- (\d\d\d\d )*(Remastere*d*)*( (\d\d\d\d)|(Version))*/g
   var newStr = name.replace(re, '').replace(/Version/, '')
   return newStr
