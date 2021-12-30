@@ -5,7 +5,7 @@ export default async (req, res) => {
   const session = await getSession({ req })
   if (session) {
     try {
-      const spotify = await useSpotify(session.user.refresh_token)
+      const spotify = await useSpotify(session.user['refresh_token'])
       const r = await spotify.addToMySavedTracks([req.query.id])
       res.send('The track has been added to Saved Tracks')
     } catch (err) {

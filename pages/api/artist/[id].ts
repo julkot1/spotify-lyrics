@@ -6,7 +6,7 @@ export default async (req, res) => {
   const session = await getSession({ req })
   if (session) {
     try {
-      const spotify = await useSpotify(session.user.refresh_token)
+      const spotify = await useSpotify(session.user['refresh_token'])
       const artist = await spotify.getArtist(req.query.id)
       const tracks = await spotify.getArtistTopTracks(req.query.id, 'PL')
       res.send({
