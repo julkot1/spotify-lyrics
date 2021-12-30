@@ -24,7 +24,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
             rel="stylesheet"
           />
-          {this.props.styleTags}
+          {this.props['styleTags']}
         </Head>
         <body>
           <Main />
