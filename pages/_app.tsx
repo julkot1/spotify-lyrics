@@ -1,3 +1,4 @@
+import HistoryList from '@components/profile/history/HistoryList'
 import { background } from '@utils/style/colors'
 import { Provider } from 'next-auth/client'
 import { createGlobalStyle } from 'styled-components'
@@ -29,6 +30,7 @@ function MyApp({ Component, pageProps }) {
     <Provider session={pageProps.session}>
       <GlobalStyle />
       <Component {...pageProps} />
+      <HistoryList />
     </Provider>
   )
 }

@@ -12,3 +12,6 @@ export interface Track {
   uri: string
   images: Image[]
 }
+export interface HistoryTrack extends Track {
+  playedAt: string
+}

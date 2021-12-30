@@ -1459,6 +1459,11 @@
   dependencies:
     "@types/spotify-api" "*"
 
+"@types/spotify-web-playback-sdk@^0.1.12", "@types/spotify-web-playback-sdk@^0.1.9":
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/@types/spotify-web-playback-sdk/-/spotify-web-playback-sdk-0.1.12.tgz#e1178736dc76fee5c151a79d94913d522e8f1cd2"
+  integrity sha512-qlKVNdHiQLSztUoMTz7Zo8Dxmzcd1k89Ct2XsNMVl8BfCzotovae/hSLvHPoua/N8i592LZ1q0SsgtQH6JT+vA==
+
 "@types/styled-components@^5.1.15":
   version "5.1.15"
   resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-5.1.15.tgz#30855b40aa80b3b4e4c0e43a4af366e7c246d148"
@@ -3981,6 +3986,13 @@ react-refresh@0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
+
+react-spotify-web-playback-sdk@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-spotify-web-playback-sdk/-/react-spotify-web-playback-sdk-2.0.0.tgz#4805d000c6122bfd9cee3c96ec06c8835372f4a4"
+  integrity sha512-uF8g2ByOyPIegMVcyQUQqs4ZIGcjQUalJCfeExG2HmbXhy9fDQAQpxlXeo5nlw6K4H4xk+j6u/Sa+WZ9RXw34A==
+  dependencies:
+    "@types/spotify-web-playback-sdk" "^0.1.9"
 
 react@17.0.2:
   version "17.0.2"
